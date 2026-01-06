@@ -35,7 +35,6 @@ fn main {
   let xyz_red_temp = @colors.xyz(41.24, 21.26, 1.93) // Approximate red in XYZ
   let xyz_blend = xyz_red_temp.blend(@colors.xyz(0.0, 0.0, 0.0), 0.5)
   println("XYZ Red + Black (50/50): " + xyz_blend.to_string())
-
   let luv_red_temp = @colors.luv(53.24, 175.05, 37.75) // Approximate red in LUV
   let luv_blend = luv_red_temp.blend(@colors.luv(0.0, 0.0, 0.0), 0.5)
   println("LUV Red + Black (50/50): " + luv_blend.to_string())
