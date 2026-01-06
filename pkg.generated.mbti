@@ -2,13 +2,13 @@
 package "bobzhang/colors"
 
 // Values
-fn linear_rgb(Double, Double, Double) -> LinearRGBColor
+pub fn linear_rgb(Double, Double, Double) -> LinearRGBColor
 
-fn luv(Double, Double, Double) -> LUVColor
+pub fn luv(Double, Double, Double) -> LUVColor
 
-fn rgb(Int, Int, Int) -> RGBColor
+pub fn rgb(Int, Int, Int) -> RGBColor
 
-fn xyz(Double, Double, Double) -> XYZColor
+pub fn xyz(Double, Double, Double) -> XYZColor
 
 // Errors
 
@@ -18,48 +18,48 @@ pub struct LUVColor {
   u : Double
   v : Double
 }
-impl Blend for LUVColor
-impl ToLUV for LUVColor
-impl ToLinearRGB for LUVColor
-impl ToRGB for LUVColor
-impl ToXYZ for LUVColor
-impl Show for LUVColor
+pub impl Blend for LUVColor
+pub impl ToLUV for LUVColor
+pub impl ToLinearRGB for LUVColor
+pub impl ToRGB for LUVColor
+pub impl ToXYZ for LUVColor
+pub impl Show for LUVColor
 
 pub struct LinearRGBColor {
   lr : Double
   lg : Double
   lb : Double
 }
-impl Blend for LinearRGBColor
-impl ToLUV for LinearRGBColor
-impl ToLinearRGB for LinearRGBColor
-impl ToRGB for LinearRGBColor
-impl ToXYZ for LinearRGBColor
-impl Show for LinearRGBColor
+pub impl Blend for LinearRGBColor
+pub impl ToLUV for LinearRGBColor
+pub impl ToLinearRGB for LinearRGBColor
+pub impl ToRGB for LinearRGBColor
+pub impl ToXYZ for LinearRGBColor
+pub impl Show for LinearRGBColor
 
 pub struct RGBColor {
   r : Int
   g : Int
   b : Int
 }
-impl Blend for RGBColor
-impl ToLUV for RGBColor
-impl ToLinearRGB for RGBColor
-impl ToRGB for RGBColor
-impl ToXYZ for RGBColor
-impl Show for RGBColor
+pub impl Blend for RGBColor
+pub impl ToLUV for RGBColor
+pub impl ToLinearRGB for RGBColor
+pub impl ToRGB for RGBColor
+pub impl ToXYZ for RGBColor
+pub impl Show for RGBColor
 
 pub struct XYZColor {
   x : Double
   y : Double
   z : Double
 }
-impl Blend for XYZColor
-impl ToLUV for XYZColor
-impl ToLinearRGB for XYZColor
-impl ToRGB for XYZColor
-impl ToXYZ for XYZColor
-impl Show for XYZColor
+pub impl Blend for XYZColor
+pub impl ToLUV for XYZColor
+pub impl ToLinearRGB for XYZColor
+pub impl ToRGB for XYZColor
+pub impl ToXYZ for XYZColor
+pub impl Show for XYZColor
 
 // Type aliases
 
