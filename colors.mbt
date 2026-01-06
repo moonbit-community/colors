@@ -13,7 +13,7 @@
 /// ```moonbit
 /// let red = @colors.rgb(255, 0, 0)
 /// let _clamped = @colors.rgb(300, -50, 128)  // becomes RGBColor(255, 0, 128)
-/// 
+///
 /// inspect(red, content="{r: 255, g: 0, b: 0}")
 /// ```
 #valtype
@@ -167,7 +167,7 @@ pub impl Blend for LUVColor with blend(self, other, mix) {
 /// ```moonbit
 /// let linear_red = @colors.linear_rgb(1.0, 0.0, 0.0)
 /// let _clamped = @colors.linear_rgb(2.0, -0.5, 0.8)  // becomes LinearRGBColor(1.0, 0.0, 0.8)
-/// 
+///
 /// inspect(linear_red, content="{lr: 1, lg: 0, lb: 0}")
 /// ```
 #valtype
@@ -184,7 +184,7 @@ pub struct LinearRGBColor {
 /// # Example
 /// ```moonbit
 /// let xyz_white = @colors.xyz(95.047, 100.0, 108.883)  // D65 white point
-/// 
+///
 /// inspect(xyz_white, content="{x: 95.047, y: 100, z: 108.883}")
 /// ```
 #valtype
@@ -201,7 +201,7 @@ pub struct XYZColor {
 /// # Example
 /// ```moonbit
 /// let luv_white = @colors.luv(100.0, 0.0, 0.0)  // L*=100 for white
-/// 
+///
 /// inspect(luv_white, content="{l: 100, u: 0, v: 0}")
 /// ```
 #valtype
@@ -302,7 +302,7 @@ fn apply_matrix(
 /// ```moonbit
 /// let red = @colors.rgb(255, 0, 0)
 /// let _clamped = @colors.rgb(300, -50, 128)  // becomes RGBColor(255, 0, 128)
-/// 
+///
 /// inspect(red, content="{r: 255, g: 0, b: 0}")
 /// ```
 pub fn rgb(r : Int, g : Int, b : Int) -> RGBColor {
@@ -326,7 +326,7 @@ pub fn rgb(r : Int, g : Int, b : Int) -> RGBColor {
 /// let rgb_gray = @colors.rgb(128, 128, 128)
 /// let _linear_gray = rgb_gray.to_linear_rgb()
 /// // RGB(128, 128, 128) becomes approximately LinearRGB(0.22, 0.22, 0.22)
-/// 
+///
 /// inspect(rgb_gray, content="{r: 128, g: 128, b: 128}")
 /// ```
 fn rgb_to_linear(color : RGBColor) -> LinearRGBColor {
@@ -358,7 +358,7 @@ fn rgb_to_linear(color : RGBColor) -> LinearRGBColor {
 /// let blue = @colors.rgb(0, 0, 255)
 /// let purple = red.blend(blue, 0.5)
 /// // Or using function: let purple = @colors.rgb_blend(red, blue, 0.5)
-/// 
+///
 /// inspect(purple, content="{r: 128, g: 0, b: 128}")
 /// ```
 fn rgb_blend(color1 : RGBColor, color2 : RGBColor, mix : Double) -> RGBColor {
@@ -394,7 +394,7 @@ fn rgb_blend(color1 : RGBColor, color2 : RGBColor, mix : Double) -> RGBColor {
 /// ```moonbit
 /// let linear_red = @colors.linear_rgb(1.0, 0.0, 0.0)
 /// let _clamped = @colors.linear_rgb(2.0, -0.5, 0.8)
-/// 
+///
 /// inspect(linear_red, content="{lr: 1, lg: 0, lb: 0}")
 /// ```
 pub fn linear_rgb(r : Double, g : Double, b : Double) -> LinearRGBColor {
@@ -469,14 +469,10 @@ fn linear_blend(
 /// let black = @colors.xyz(0.0, 0.0, 0.0)
 /// let gray = white.blend(black, 0.5)
 /// // Or using function: let gray = @colors.xyz_blend(white, black, 0.5)
-/// 
+///
 /// inspect(gray, content="{x: 47.5235, y: 50, z: 54.4415}")
 /// ```
-fn xyz_blend(
-  color1 : XYZColor,
-  color2 : XYZColor,
-  mix : Double,
-) -> XYZColor {
+fn xyz_blend(color1 : XYZColor, color2 : XYZColor, mix : Double) -> XYZColor {
   let mix_clamped = clamp(mix, 0.0, 1.0)
   xyz(
     color1.x * (1.0 - mix_clamped) + color2.x * mix_clamped,
@@ -502,14 +498,10 @@ fn xyz_blend(
 /// let black = @colors.luv(0.0, 0.0, 0.0)
 /// let gray = white.blend(black, 0.5)
 /// // Or using function: let gray = @colors.luv_blend(white, black, 0.5)
-/// 
+///
 /// inspect(gray, content="{l: 50, u: 0, v: 0}")
 /// ```
-fn luv_blend(
-  color1 : LUVColor,
-  color2 : LUVColor,
-  mix : Double,
-) -> LUVColor {
+fn luv_blend(color1 : LUVColor, color2 : LUVColor, mix : Double) -> LUVColor {
   let mix_clamped = clamp(mix, 0.0, 1.0)
   luv(
     color1.l * (1.0 - mix_clamped) + color2.l * mix_clamped,
