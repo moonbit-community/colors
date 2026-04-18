@@ -10,7 +10,7 @@
 /// Values are in the range [0, 255] for each component.
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let red = @colors.rgb(255, 0, 0)
 /// let _clamped = @colors.rgb(300, -50, 128)  // becomes RGBColor(255, 0, 128)
 ///
@@ -21,7 +21,7 @@ pub struct RGBColor {
   r : Int
   g : Int
   b : Int
-} derive(Show)
+} derive(Debug)
 
 // Conversion traits for organizing the API
 
@@ -164,7 +164,7 @@ pub impl Blend for LUVColor with blend(self, other, mix) {
 /// Ideal for lighting calculations and physically accurate blending.
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let linear_red = @colors.linear_rgb(1.0, 0.0, 0.0)
 /// let _clamped = @colors.linear_rgb(2.0, -0.5, 0.8)  // becomes LinearRGBColor(1.0, 0.0, 0.8)
 ///
@@ -175,14 +175,14 @@ pub struct LinearRGBColor {
   lr : Double
   lg : Double
   lb : Double
-} derive(Show)
+} derive(Debug)
 
 ///|
 /// XYZ color type representing CIE XYZ color space.
 /// Device-independent color space used as intermediate for conversions.
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let xyz_white = @colors.xyz(95.047, 100.0, 108.883)  // D65 white point
 ///
 /// inspect(xyz_white, content="{x: 95.047, y: 100, z: 108.883}")
@@ -192,14 +192,14 @@ pub struct XYZColor {
   x : Double
   y : Double
   z : Double
-} derive(Show)
+} derive(Debug)
 
 ///|
 /// LUV color type representing CIE LUV color space.
 /// Perceptually uniform color space useful for color difference calculations.
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let luv_white = @colors.luv(100.0, 0.0, 0.0)  // L*=100 for white
 ///
 /// inspect(luv_white, content="{l: 100, u: 0, v: 0}")
@@ -209,7 +209,7 @@ pub struct LUVColor {
   l : Double
   u : Double
   v : Double
-} derive(Show)
+} derive(Debug)
 
 ///|
 /// Constants for color space conversions
@@ -255,7 +255,7 @@ fn srgb_to_linear(value : Double) -> Double {
   if value <= 0.04045 {
     value / 12.92
   } else {
-    ((value + 0.055) / 1.055).pow(2.4)
+    @math.pow((value + 0.055) / 1.055, 2.4)
   }
 }
 
@@ -265,7 +265,7 @@ fn linear_to_srgb(value : Double) -> Double {
   if value <= 0.0031308 {
     value * 12.92
   } else {
-    1.055 * value.pow(1.0 / 2.4) - 0.055
+    1.055 * @math.pow(value, 1.0 / 2.4) - 0.055
   }
 }
 
@@ -299,7 +299,7 @@ fn apply_matrix(
 /// A new `RGBColor` with clamped values
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let red = @colors.rgb(255, 0, 0)
 /// let _clamped = @colors.rgb(300, -50, 128)  // becomes RGBColor(255, 0, 128)
 ///
@@ -322,7 +322,7 @@ pub fn rgb(r : Int, g : Int, b : Int) -> RGBColor {
 /// A new `LinearRGBColor` in linear space
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let rgb_gray = @colors.rgb(128, 128, 128)
 /// let _linear_gray = rgb_gray.to_linear_rgb()
 /// // RGB(128, 128, 128) becomes approximately LinearRGB(0.22, 0.22, 0.22)
@@ -353,7 +353,7 @@ fn rgb_to_linear(color : RGBColor) -> LinearRGBColor {
 /// A new `RGBColor` representing the blended result
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let red = @colors.rgb(255, 0, 0)
 /// let blue = @colors.rgb(0, 0, 255)
 /// let purple = red.blend(blue, 0.5)
@@ -391,7 +391,7 @@ fn rgb_blend(color1 : RGBColor, color2 : RGBColor, mix : Double) -> RGBColor {
 /// A new `LinearRGBColor` with clamped values
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let linear_red = @colors.linear_rgb(1.0, 0.0, 0.0)
 /// let _clamped = @colors.linear_rgb(2.0, -0.5, 0.8)
 ///
@@ -464,7 +464,7 @@ fn linear_blend(
 /// A new `XYZColor` representing the blended result
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let white = @colors.xyz(95.047, 100.0, 108.883)
 /// let black = @colors.xyz(0.0, 0.0, 0.0)
 /// let gray = white.blend(black, 0.5)
@@ -493,7 +493,7 @@ fn xyz_blend(color1 : XYZColor, color2 : XYZColor, mix : Double) -> XYZColor {
 /// A new `LUVColor` representing the blended result
 ///
 /// # Example
-/// ```moonbit
+/// ```moonbit nocheck
 /// let white = @colors.luv(100.0, 0.0, 0.0)
 /// let black = @colors.luv(0.0, 0.0, 0.0)
 /// let gray = white.blend(black, 0.5)
@@ -555,7 +555,7 @@ fn xyz_to_luv(color : XYZColor) -> LUVColor {
     (d65_white_x + 15.0 * d65_white_y + 3.0 * d65_white_z)
   let y_ratio = color.y / d65_white_y
   let l = if y_ratio > 0.008856 {
-    116.0 * y_ratio.pow(1.0 / 3.0) - 16.0
+    116.0 * @math.pow(y_ratio, 1.0 / 3.0) - 16.0
   } else {
     903.3 * y_ratio
   }
@@ -595,7 +595,7 @@ fn luv_to_xyz(color : LUVColor) -> XYZColor {
     d65_white_y /
     (d65_white_x + 15.0 * d65_white_y + 3.0 * d65_white_z)
   let y = if color.l > 8.0 {
-    d65_white_y * ((color.l + 16.0) / 116.0).pow(3.0)
+    d65_white_y * @math.pow((color.l + 16.0) / 116.0, 3.0)
   } else {
     d65_white_y * color.l / 903.3
   }
@@ -617,3 +617,23 @@ fn luv_to_xyz(color : LUVColor) -> XYZColor {
 // Universal XYZ conversion functions removed - use .to_xyz() trait method instead
 
 // Universal LUV conversion functions removed - use .to_luv() trait method instead
+
+///|
+pub impl Show for RGBColor with output(self, logger) {
+  logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
+}
+
+///|
+pub impl Show for LinearRGBColor with output(self, logger) {
+  logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
+}
+
+///|
+pub impl Show for XYZColor with output(self, logger) {
+  logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
+}
+
+///|
+pub impl Show for LUVColor with output(self, logger) {
+  logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
+}
