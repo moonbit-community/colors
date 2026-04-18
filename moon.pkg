@@ -1,3 +1,8 @@
+import {
+  "moonbitlang/core/math",
+  "moonbitlang/core/debug",
+}
+
 options(
   "is-main": false,
 )

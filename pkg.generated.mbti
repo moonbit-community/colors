@@ -1,6 +1,10 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "bobzhang/colors"
 
+import {
+  "moonbitlang/core/debug",
+}
+
 // Values
 pub fn linear_rgb(Double, Double, Double) -> LinearRGBColor
 
@@ -17,7 +21,7 @@ pub struct LUVColor {
   l : Double
   u : Double
   v : Double
-}
+} derive(@debug.Debug)
 pub impl Blend for LUVColor
 pub impl ToLUV for LUVColor
 pub impl ToLinearRGB for LUVColor
@@ -29,7 +33,7 @@ pub struct LinearRGBColor {
   lr : Double
   lg : Double
   lb : Double
-}
+} derive(@debug.Debug)
 pub impl Blend for LinearRGBColor
 pub impl ToLUV for LinearRGBColor
 pub impl ToLinearRGB for LinearRGBColor
@@ -41,7 +45,7 @@ pub struct RGBColor {
   r : Int
   g : Int
   b : Int
-}
+} derive(@debug.Debug)
 pub impl Blend for RGBColor
 pub impl ToLUV for RGBColor
 pub impl ToLinearRGB for RGBColor
@@ -53,7 +57,7 @@ pub struct XYZColor {
   x : Double
   y : Double
   z : Double
-}
+} derive(@debug.Debug)
 pub impl Blend for XYZColor
 pub impl ToLUV for XYZColor
 pub impl ToLinearRGB for XYZColor
