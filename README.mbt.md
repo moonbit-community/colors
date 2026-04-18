@@ -264,7 +264,7 @@ The trait methods provide a cleaner API while the direct functions offer explici
 
 The library also provides a clean trait-based API that reduces the API surface and makes conversions more intuitive:
 
-```moonbit nocheck
+```moonbit check
 ///|
 test "trait-based conversions" {
   let rgb_color = @colors.rgb(255, 128, 64)
