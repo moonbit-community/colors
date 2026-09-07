@@ -1,0 +1,17 @@
+name = "bobzhang/colors"
+
+version = "0.8.1"
+
+readme = "README.md"
+
+repository = "https://github.com/moonbit-community/colors"
+
+license = "MIT"
+
+keywords = [ "colors", "color-spaces", "rgb", "xyz", "luv", "graphics" ]
+
+description = "A pure MoonBit library for manipulating colors in different color spaces (RGB, LinearRGB, XYZ, LUV)"
+
+options(
+  "alert-list": "+test_import_all",
+)

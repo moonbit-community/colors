@@ -27,134 +27,134 @@ pub struct RGBColor {
 
 ///|
 pub trait ToRGB {
-  to_rgb(Self) -> RGBColor
+  fn to_rgb(Self) -> RGBColor
 }
 
 ///|
 pub trait ToLinearRGB {
-  to_linear_rgb(Self) -> LinearRGBColor
+  fn to_linear_rgb(Self) -> LinearRGBColor
 }
 
 ///|
 pub trait ToXYZ {
-  to_xyz(Self) -> XYZColor
+  fn to_xyz(Self) -> XYZColor
 }
 
 ///|
 pub trait ToLUV {
-  to_luv(Self) -> LUVColor
+  fn to_luv(Self) -> LUVColor
 }
 
 ///|
 pub trait Blend {
-  blend(Self, Self, Double) -> Self
+  fn blend(Self, Self, Double) -> Self
 }
 
 // Trait implementations for RGBColor
 
 ///|
-pub impl ToRGB for RGBColor with to_rgb(self) {
+pub impl ToRGB for RGBColor with fn to_rgb(self) {
   self
 }
 
 ///|
-pub impl ToLinearRGB for RGBColor with to_linear_rgb(self) {
+pub impl ToLinearRGB for RGBColor with fn to_linear_rgb(self) {
   rgb_to_linear(self)
 }
 
 ///|
-pub impl ToXYZ for RGBColor with to_xyz(self) {
+pub impl ToXYZ for RGBColor with fn to_xyz(self) {
   linear_to_xyz(rgb_to_linear(self))
 }
 
 ///|
-pub impl ToLUV for RGBColor with to_luv(self) {
+pub impl ToLUV for RGBColor with fn to_luv(self) {
   xyz_to_luv(linear_to_xyz(rgb_to_linear(self)))
 }
 
 ///|
-pub impl Blend for RGBColor with blend(self, other, mix) {
+pub impl Blend for RGBColor with fn blend(self, other, mix) {
   rgb_blend(self, other, mix)
 }
 
 // Trait implementations for LinearRGBColor
 
 ///|
-pub impl ToRGB for LinearRGBColor with to_rgb(self) {
+pub impl ToRGB for LinearRGBColor with fn to_rgb(self) {
   linear_to_rgb(self)
 }
 
 ///|
-pub impl ToLinearRGB for LinearRGBColor with to_linear_rgb(self) {
+pub impl ToLinearRGB for LinearRGBColor with fn to_linear_rgb(self) {
   self
 }
 
 ///|
-pub impl ToXYZ for LinearRGBColor with to_xyz(self) {
+pub impl ToXYZ for LinearRGBColor with fn to_xyz(self) {
   linear_to_xyz(self)
 }
 
 ///|
-pub impl ToLUV for LinearRGBColor with to_luv(self) {
+pub impl ToLUV for LinearRGBColor with fn to_luv(self) {
   xyz_to_luv(linear_to_xyz(self))
 }
 
 ///|
-pub impl Blend for LinearRGBColor with blend(self, other, mix) {
+pub impl Blend for LinearRGBColor with fn blend(self, other, mix) {
   linear_blend(self, other, mix)
 }
 
 ///|
-pub impl Blend for XYZColor with blend(self, other, mix) {
+pub impl Blend for XYZColor with fn blend(self, other, mix) {
   xyz_blend(self, other, mix)
 }
 
 // Trait implementations for XYZColor
 
 ///|
-pub impl ToRGB for XYZColor with to_rgb(self) {
+pub impl ToRGB for XYZColor with fn to_rgb(self) {
   linear_to_rgb(xyz_to_linear(self))
 }
 
 ///|
-pub impl ToLinearRGB for XYZColor with to_linear_rgb(self) {
+pub impl ToLinearRGB for XYZColor with fn to_linear_rgb(self) {
   xyz_to_linear(self)
 }
 
 ///|
-pub impl ToXYZ for XYZColor with to_xyz(self) {
+pub impl ToXYZ for XYZColor with fn to_xyz(self) {
   self
 }
 
 ///|
-pub impl ToLUV for XYZColor with to_luv(self) {
+pub impl ToLUV for XYZColor with fn to_luv(self) {
   xyz_to_luv(self)
 }
 
 // Trait implementations for LUVColor
 
 ///|
-pub impl ToRGB for LUVColor with to_rgb(self) {
+pub impl ToRGB for LUVColor with fn to_rgb(self) {
   linear_to_rgb(xyz_to_linear(luv_to_xyz(self)))
 }
 
 ///|
-pub impl ToLinearRGB for LUVColor with to_linear_rgb(self) {
+pub impl ToLinearRGB for LUVColor with fn to_linear_rgb(self) {
   xyz_to_linear(luv_to_xyz(self))
 }
 
 ///|
-pub impl ToXYZ for LUVColor with to_xyz(self) {
+pub impl ToXYZ for LUVColor with fn to_xyz(self) {
   luv_to_xyz(self)
 }
 
 ///|
-pub impl ToLUV for LUVColor with to_luv(self) {
+pub impl ToLUV for LUVColor with fn to_luv(self) {
   self
 }
 
 ///|
-pub impl Blend for LUVColor with blend(self, other, mix) {
+pub impl Blend for LUVColor with fn blend(self, other, mix) {
   luv_blend(self, other, mix)
 }
 
@@ -309,7 +309,7 @@ pub fn rgb(r : Int, g : Int, b : Int) -> RGBColor {
   let r_clamped = if r < 0 { 0 } else if r > 255 { 255 } else { r }
   let g_clamped = if g < 0 { 0 } else if g > 255 { 255 } else { g }
   let b_clamped = if b < 0 { 0 } else if b > 255 { 255 } else { b }
-  { r: r_clamped, g: g_clamped, b: b_clamped }
+  { r: r_clamped, g: g_clamped, b: b_clamped, }
 }
 
 ///|
@@ -372,7 +372,7 @@ fn rgb_blend(color1 : RGBColor, color2 : RGBColor, mix : Double) -> RGBColor {
   let b = (color1.b.to_double() * (1.0 - mix_clamped) +
   color2.b.to_double() * mix_clamped +
   0.5).to_int()
-  { r, g, b }
+  { r, g, b, }
 }
 
 // ============================================================================
@@ -398,7 +398,7 @@ fn rgb_blend(color1 : RGBColor, color2 : RGBColor, mix : Double) -> RGBColor {
 /// inspect(linear_red, content="{lr: 1, lg: 0, lb: 0}")
 /// ```
 pub fn linear_rgb(r : Double, g : Double, b : Double) -> LinearRGBColor {
-  { lr: clamp(r, 0.0, 1.0), lg: clamp(g, 0.0, 1.0), lb: clamp(b, 0.0, 1.0) }
+  { lr: clamp(r, 0.0, 1.0), lg: clamp(g, 0.0, 1.0), lb: clamp(b, 0.0, 1.0), }
 }
 
 ///|
@@ -525,7 +525,7 @@ fn luv_blend(color1 : LUVColor, color2 : LUVColor, mix : Double) -> LUVColor {
 /// # Returns
 /// A new `XYZColor`
 pub fn xyz(x : Double, y : Double, z : Double) -> XYZColor {
-  { x, y, z }
+  { x, y, z, }
 }
 
 ///|
@@ -579,7 +579,7 @@ fn xyz_to_luv(color : XYZColor) -> LUVColor {
 /// # Returns
 /// A new `LUVColor`
 pub fn luv(l : Double, u : Double, v : Double) -> LUVColor {
-  { l, u, v }
+  { l, u, v, }
 }
 
 ///|
@@ -619,21 +619,21 @@ fn luv_to_xyz(color : LUVColor) -> XYZColor {
 // Universal LUV conversion functions removed - use .to_luv() trait method instead
 
 ///|
-pub impl Show for RGBColor with output(self, logger) {
+pub impl Show for RGBColor with fn output(self, logger) {
   logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
 }
 
 ///|
-pub impl Show for LinearRGBColor with output(self, logger) {
+pub impl Show for LinearRGBColor with fn output(self, logger) {
   logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
 }
 
 ///|
-pub impl Show for XYZColor with output(self, logger) {
+pub impl Show for XYZColor with fn output(self, logger) {
   logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
 }
 
 ///|
-pub impl Show for LUVColor with output(self, logger) {
+pub impl Show for LUVColor with fn output(self, logger) {
   logger.write_string(@debug.render(self.to_repr(), max_depth=2147483647))
 }
