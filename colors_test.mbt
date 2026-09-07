@@ -156,7 +156,7 @@ test "rgb to linear conversion" {
 
   // Check that conversion produces reasonable values
   match linear_red {
-    { lr, lg, lb } => {
+    { lr, lg, lb, } => {
       let r_reasonable = lr > 0.9 && lr <= 1.0
       let g_zero = lg == 0.0
       let b_zero = lb == 0.0
@@ -170,7 +170,7 @@ test "rgb to linear conversion" {
   let rgb_mid = @colors.rgb(128, 128, 128)
   let linear_mid = rgb_mid.to_linear_rgb()
   match linear_mid {
-    { lr, lg: _, lb: _ } => {
+    { lr, lg: _, lb: _, } => {
       // Due to gamma correction, 128/255 ≈ 0.5 in sRGB should be ~0.22 in linear
       let gamma_corrected = lr < 0.3 && lr > 0.1
       inspect(gamma_corrected, content="true")
@@ -196,7 +196,7 @@ test "linear to rgb conversion" {
 
   // Should be very close to original (within rounding error)
   match (original_rgb, back_to_rgb) {
-    ({ r: r1, g: g1, b: b1 }, { r: r2, g: g2, b: b2 }) => {
+    ({ r: r1, g: g1, b: b1, }, { r: r2, g: g2, b: b2, }) => {
       let r_close = (r1 - r2).abs() <= 1
       let g_close = (g1 - g2).abs() <= 1
       let b_close = (b1 - b2).abs() <= 1
@@ -214,7 +214,7 @@ test "linear to xyz conversion" {
 
   // Should be close to D65 white point
   match xyz_white {
-    { x, y, z } => {
+    { x, y, z, } => {
       let x_close = (x - 95.047).abs() < 1.0
       let y_close = (y - 100.0).abs() < 1.0
       let z_close = (z - 108.883).abs() < 1.0
@@ -232,7 +232,7 @@ test "xyz to linear conversion" {
 
   // Should be close to (1, 1, 1)
   match linear_white {
-    { lr, lg, lb } => {
+    { lr, lg, lb, } => {
       let r_close = (lr - 1.0).abs() < 0.1
       let g_close = (lg - 1.0).abs() < 0.1
       let b_close = (lb - 1.0).abs() < 0.1
@@ -250,7 +250,7 @@ test "xyz to luv conversion" {
 
   // White point should have L*=100, u*≈0, v*≈0
   match luv_white {
-    { l, u, v } => {
+    { l, u, v, } => {
       let l_correct = (l - 100.0).abs() < 1.0
       let u_small = u.abs() < 1.0
       let v_small = v.abs() < 1.0
@@ -268,7 +268,7 @@ test "luv to xyz conversion" {
 
   // Should be close to D65 white point
   match xyz_white {
-    { x, y, z } => {
+    { x, y, z, } => {
       let x_close = (x - 95.047).abs() < 1.0
       let y_close = (y - 100.0).abs() < 1.0
       let z_close = (z - 108.883).abs() < 1.0
@@ -558,7 +558,7 @@ test "color space conversion edge cases" {
 
   // Check that round-trip is close to original (within reasonable tolerance)
   match (original_xyz, round_trip_xyz) {
-    ({ x: x1, y: y1, z: z1 }, { x: x2, y: y2, z: z2 }) => {
+    ({ x: x1, y: y1, z: z1, }, { x: x2, y: y2, z: z2, }) => {
       let x_close = (x1 - x2).abs() < 0.01
       let y_close = (y1 - y2).abs() < 0.01
       let z_close = (z1 - z2).abs() < 0.01
@@ -726,7 +726,7 @@ test "trait-based rgb conversion" {
 
   // Others should produce valid RGB colors
   match rgb2 {
-    { r, g, b } => {
+    { r, g, b, } => {
       let valid_r = r >= 0 && r <= 255
       let valid_g = g >= 0 && g <= 255
       let valid_b = b >= 0 && b <= 255
@@ -760,7 +760,7 @@ test "trait-based linear rgb conversion" {
 
   // Others should produce valid LinearRGB colors
   match linear1 {
-    { lr, lg, lb } => {
+    { lr, lg, lb, } => {
       let valid_r = lr >= 0.0 && lr <= 1.0
       let valid_g = lg >= 0.0 && lg <= 1.0
       let valid_b = lb >= 0.0 && lb <= 1.0
@@ -794,7 +794,7 @@ test "trait-based xyz conversion" {
 
   // Others should produce valid XYZ colors
   match xyz1 {
-    { x, y, z } => {
+    { x, y, z, } => {
       let valid_x = x >= 0.0
       let valid_y = y >= 0.0
       let valid_z = z >= 0.0
@@ -828,7 +828,7 @@ test "trait-based luv conversion" {
 
   // Others should produce valid LUV colors
   match luv1 {
-    { l, u: _, v: _ } => {
+    { l, u: _, v: _, } => {
       let valid_l = l >= 0.0 && l <= 100.0
       inspect(valid_l, content="true")
     }
@@ -850,7 +850,7 @@ test "chained conversions" {
 
   // Should be close to original (within rounding error)
   match (original_rgb, final_rgb) {
-    ({ r: r1, g: g1, b: b1 }, { r: r2, g: g2, b: b2 }) => {
+    ({ r: r1, g: g1, b: b1, }, { r: r2, g: g2, b: b2, }) => {
       let r_close = (r1 - r2).abs() <= 2 // Allow for some rounding error
       let g_close = (g1 - g2).abs() <= 2
       let b_close = (b1 - b2).abs() <= 2
@@ -895,7 +895,7 @@ test "edge cases" {
 
   // White should have L* close to 100
   match white_luv {
-    { l, u: _, v: _ } => {
+    { l, u: _, v: _, } => {
       let l_close_to_100 = (l - 100.0).abs() < 1.0
       inspect(l_close_to_100, content="false")
     }
