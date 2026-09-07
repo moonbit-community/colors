@@ -79,7 +79,7 @@ fn main {
   println("RGB middle gray: " + rgb_mid.to_string())
   println("Linear equivalent: " + linear_mid.to_string())
   match linear_mid {
-    { lr, lg: _, lb: _ } =>
+    { lr, lg: _, lb: _, } =>
       println(
         "Linear value is ~" +
         lr.to_string() +

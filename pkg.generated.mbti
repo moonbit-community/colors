@@ -22,6 +22,14 @@ pub struct LUVColor {
   u : Double
   v : Double
 } derive(@debug.Debug)
+pub fn LUVColor::blend(Self, Self, Double) -> Self
+pub fn LUVColor::output(Self, &Logger) -> Unit
+pub fn LUVColor::to_linear_rgb(Self) -> LinearRGBColor
+pub fn LUVColor::to_luv(Self) -> Self
+pub fn LUVColor::to_repr(Self) -> @debug.Repr
+pub fn LUVColor::to_rgb(Self) -> RGBColor
+pub fn LUVColor::to_string(Self) -> String
+pub fn LUVColor::to_xyz(Self) -> XYZColor
 pub impl Blend for LUVColor
 pub impl ToLUV for LUVColor
 pub impl ToLinearRGB for LUVColor
@@ -34,6 +42,14 @@ pub struct LinearRGBColor {
   lg : Double
   lb : Double
 } derive(@debug.Debug)
+pub fn LinearRGBColor::blend(Self, Self, Double) -> Self
+pub fn LinearRGBColor::output(Self, &Logger) -> Unit
+pub fn LinearRGBColor::to_linear_rgb(Self) -> Self
+pub fn LinearRGBColor::to_luv(Self) -> LUVColor
+pub fn LinearRGBColor::to_repr(Self) -> @debug.Repr
+pub fn LinearRGBColor::to_rgb(Self) -> RGBColor
+pub fn LinearRGBColor::to_string(Self) -> String
+pub fn LinearRGBColor::to_xyz(Self) -> XYZColor
 pub impl Blend for LinearRGBColor
 pub impl ToLUV for LinearRGBColor
 pub impl ToLinearRGB for LinearRGBColor
@@ -46,6 +62,14 @@ pub struct RGBColor {
   g : Int
   b : Int
 } derive(@debug.Debug)
+pub fn RGBColor::blend(Self, Self, Double) -> Self
+pub fn RGBColor::output(Self, &Logger) -> Unit
+pub fn RGBColor::to_linear_rgb(Self) -> LinearRGBColor
+pub fn RGBColor::to_luv(Self) -> LUVColor
+pub fn RGBColor::to_repr(Self) -> @debug.Repr
+pub fn RGBColor::to_rgb(Self) -> Self
+pub fn RGBColor::to_string(Self) -> String
+pub fn RGBColor::to_xyz(Self) -> XYZColor
 pub impl Blend for RGBColor
 pub impl ToLUV for RGBColor
 pub impl ToLinearRGB for RGBColor
@@ -58,6 +82,14 @@ pub struct XYZColor {
   y : Double
   z : Double
 } derive(@debug.Debug)
+pub fn XYZColor::blend(Self, Self, Double) -> Self
+pub fn XYZColor::output(Self, &Logger) -> Unit
+pub fn XYZColor::to_linear_rgb(Self) -> LinearRGBColor
+pub fn XYZColor::to_luv(Self) -> LUVColor
+pub fn XYZColor::to_repr(Self) -> @debug.Repr
+pub fn XYZColor::to_rgb(Self) -> RGBColor
+pub fn XYZColor::to_string(Self) -> String
+pub fn XYZColor::to_xyz(Self) -> Self
 pub impl Blend for XYZColor
 pub impl ToLUV for XYZColor
 pub impl ToLinearRGB for XYZColor
@@ -69,22 +101,21 @@ pub impl Show for XYZColor
 
 // Traits
 pub trait Blend {
-  blend(Self, Self, Double) -> Self
+  fn blend(Self, Self, Double) -> Self
 }
 
 pub trait ToLUV {
-  to_luv(Self) -> LUVColor
+  fn to_luv(Self) -> LUVColor
 }
 
 pub trait ToLinearRGB {
-  to_linear_rgb(Self) -> LinearRGBColor
+  fn to_linear_rgb(Self) -> LinearRGBColor
 }
 
 pub trait ToRGB {
-  to_rgb(Self) -> RGBColor
+  fn to_rgb(Self) -> RGBColor
 }
 
 pub trait ToXYZ {
-  to_xyz(Self) -> XYZColor
+  fn to_xyz(Self) -> XYZColor
 }
-
