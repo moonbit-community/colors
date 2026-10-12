@@ -18,9 +18,9 @@
 /// ```
 #valtype
 pub struct RGBColor {
-  r : Int
-  g : Int
-  b : Int
+  r : Int32
+  g : Int32
+  b : Int32
 } derive(Debug)
 
 // Conversion traits for organizing the API
@@ -305,7 +305,7 @@ fn apply_matrix(
 ///
 /// inspect(red, content="{r: 255, g: 0, b: 0}")
 /// ```
-pub fn rgb(r : Int, g : Int, b : Int) -> RGBColor {
+pub fn rgb(r : Int32, g : Int32, b : Int32) -> RGBColor {
   let r_clamped = if r < 0 { 0 } else if r > 255 { 255 } else { r }
   let g_clamped = if g < 0 { 0 } else if g > 255 { 255 } else { g }
   let b_clamped = if b < 0 { 0 } else if b > 255 { 255 } else { b }
